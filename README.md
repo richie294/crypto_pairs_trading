@@ -1,6 +1,6 @@
 # README FILE
 
-### Problem addressed
+### Problem addressed
 
 In this project we applied a statistical arbitrage method, derived from the paper ‘Statistical Arbitrage in the US equities market’ by Marco Avellaneda and Jeong-Hyun Lee. We are basically trying to create a strategy that profits from the fact that individual securities (in this case cryptocurrencies) have idiosyncratic returns that follow a mean-reverting process. Therefore, if the residuals (which are idiosyncratic returns) of the regression of returns on factors deviate from their mean, we open a position that would profit from the mean- reverting movement of the residuals. We determine the factors F thanks to the PCA, and use those factors F as variables on which to regress the returns and find the residuals, or idiosyncratic returns. Once we find the residuals, under the assumption that they follow a mean-reverting process (namely the Ornstein-Uhlenbeck process) we calculate the parameters of such process and create a trading signal based on such parameters: the s- score. We then construct a trading strategy based, in every hour, on current s-scores and previously opened positions.
 
@@ -44,7 +44,7 @@ Practically, in the implementation function of the Project_Implementation class 
 The update_pos function, called in the strategy function, is the key element of the strategy implementation. Here, we use (*) (named df in the function) to confront the current s- scores with the opened positions from an hour earlier. We always update the current price of the positions and, if certain conditions are met, we close the position. This means practically (1) adding the closing price and closing date information to the element of the dictionary, (2) appending the position to the closed_positions list, (3) eliminating the position from the current positions’ dictionary (positions).
 The update_stats_closed and update_stats_current functions make use, respectively, of the newly created closed_positions and the newly updated positions to update DataFrames containing useful information for the closed and open trades. In such DataFrames, each row represents a single trade. The ‘Position’ column is 1 when the position was long and -1 when a position was short.
 
-### Performance_Measures class:
+### Performance_Measures class:
 
 This class contains a set of functions used to calculate the performance measures of the strategy. To facilitate with the calculation of the returns of a given portfolio, we constructed the extract_ret function that calculates the returns for a given token between the given
 
